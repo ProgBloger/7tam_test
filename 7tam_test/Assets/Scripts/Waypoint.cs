@@ -11,7 +11,6 @@ public class Waypoint : MonoBehaviour
     public bool isExplored = false;
     public Waypoint exploredFrom;
 
-
     public int GetGridSize()
     {
         return gridSize;

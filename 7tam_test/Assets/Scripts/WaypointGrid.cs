@@ -22,6 +22,7 @@ public class WaypointGrid : MonoBehaviour
     public Waypoint GetNextWaypoint(Waypoint current, Vector2 direction)
     {
         Vector2Int nearPointCoordinates = current.GetGridPos() + Vector2Int.RoundToInt(direction);
+        
         if(grid.ContainsKey(nearPointCoordinates))
         {
             return grid[nearPointCoordinates];

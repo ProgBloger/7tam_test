@@ -12,10 +12,13 @@ public class Player : MonoBehaviour
     };
 
 
-    public float speed = 4.5f;
-    public Waypoint waypoint;
-
+    public float moveStepDelay = 0.5f;
+    public float moveStepSpeed = 10;
+    public Waypoint currentWaypoint;
+    public Waypoint nextWP;
     public WaypointGrid grid;
+    private float lerpTime = 0;
+
 
     // Update is called once per frame
     void Update()
@@ -25,20 +28,43 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        // Current block position
-        // Next block position
-            // Get direction from player input
-        var direction = GetDirection();
-            // Get next block from WaypointGrid
-        var nextWP = grid.GetNextWaypoint(waypoint, direction);
-        
-        if(nextWP != null && waypoint != nextWP)
+        // 
+        if(nextWP != null && currentWaypoint != nextWP)
         {
-            // TODO: Lerp movement
-            transform.position = nextWP.transform.position;
-            waypoint = nextWP;
+            lerpTime += Time.deltaTime;
+
+            MakeAMove();
+
+            // Destination position is reached
+            if(lerpTime >= moveStepDelay)
+            {
+                // Debug.Log($"next to current set");
+                currentWaypoint = nextWP;
+            }
+        }
+        else
+        {
+            var direction = GetDirection();
+            // Debug.Log($"Direction {direction}");
+            // Debug.Log($"currentWaypoint {currentWaypoint.GetGridPos()}");
+            nextWP = grid.GetNextWaypoint(currentWaypoint, direction);
+            // Debug.Log($"Next wp is null {nextWP == null}");
+            lerpTime = 0;
         }
         // Play animation
+    }
+
+    private void MakeAMove()
+    {
+        var playerPosition = transform.position;
+            var nextWPPosition = nextWP.transform.position;
+
+            var lerped = Vector2.Lerp(
+                playerPosition, 
+                nextWPPosition, 
+                Time.deltaTime*moveStepSpeed);
+            
+            transform.position = lerped;
     }
 
     private Vector2 GetDirection()

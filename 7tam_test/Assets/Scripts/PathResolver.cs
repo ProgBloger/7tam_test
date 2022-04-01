@@ -7,15 +7,20 @@ public class PathResolver : MonoBehaviour
     [SerializeField] PathFinder pathFinder;
     [SerializeField] public List<Waypoint> path = new List<Waypoint>();
 
-    public List<Waypoint> GetPath(Waypoint startPoint, Waypoint endPoint)
+    public Stack<Waypoint> GetPath(Waypoint startPoint, Waypoint endPoint)
     {
-        if(path.Count == 0)
+        Debug.Log($"startPoint{startPoint.GetGridPos()}");
+        Debug.Log($"endPoint{endPoint.GetGridPos()}");
+        
+        pathFinder.PathFindAlgorythm(startPoint, endPoint);
+        CreatePath(startPoint, endPoint);
+        
+        foreach(var item in path)
         {
-            pathFinder.PathFindAlgorythm(startPoint, endPoint);
-            CreatePath(startPoint, endPoint);
+            Debug.Log($"item {item.GetGridPos()}");
         }
 
-        return path;
+        return new Stack<Waypoint> (path);
     }
 
     private void CreatePath(Waypoint startPoint, Waypoint endPoint)
@@ -29,8 +34,8 @@ public class PathResolver : MonoBehaviour
         }
 
         AddPointToPath(startPoint);
-
-        path.Reverse();
+        // Commited cuz swithced to stack
+        // path.Reverse();
     }
 
     private void AddPointToPath(Waypoint waypoint)
