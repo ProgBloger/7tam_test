@@ -3536,6 +3536,7 @@ GameObject:
   - component: {fileID: 1675506669}
   - component: {fileID: 1675506666}
   - component: {fileID: 1675506670}
+  - component: {fileID: 1675506671}
   m_Layer: 0
   m_Name: Farmer
   m_TagString: Untagged
@@ -3659,6 +3660,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1675506671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675506665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f0eb5075a6573c42bbeecd92688d39e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1708070750 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3951844007584039821, guid: 9975904c875c644428ccb88cfff8897f, type: 3}
@@ -3897,6 +3910,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7190783698272125337, guid: 7defebd23e1ecd34d9676b63786c0b16, type: 3}
   m_PrefabInstance: {fileID: 7190783697642707624}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1787288370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787288369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f14e8004530d0d49b6d730c6be619bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1787288374 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7190783698272125342, guid: 7defebd23e1ecd34d9676b63786c0b16, type: 3}
@@ -3914,9 +3939,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fa33145c71039439421e0db02b6ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  range: 0
-  maxDistance: 0
+  speed: 1
+  range: 10
+  maxDistance: 10
 --- !u!1 &1849808865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3951844007584039821, guid: 9975904c875c644428ccb88cfff8897f, type: 3}
@@ -4805,7 +4830,7 @@ PrefabInstance:
       objectReference: {fileID: 473165950}
     - target: {fileID: 7190783698272125338, guid: 7defebd23e1ecd34d9676b63786c0b16, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7190783698272125338, guid: 7defebd23e1ecd34d9676b63786c0b16, type: 3}
       propertyPath: moveSpeed
