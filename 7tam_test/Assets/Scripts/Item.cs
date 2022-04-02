@@ -19,10 +19,8 @@ public class Item : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTriggerEnter");
         if(other.GetComponent<Player>() != null)
         {
-            Debug.Log("Item Triggered");
             itemController.ItemCollected();
             Destroy(this.gameObject);
         }

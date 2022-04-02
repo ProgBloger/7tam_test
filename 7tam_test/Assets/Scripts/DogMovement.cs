@@ -23,22 +23,25 @@ public class DogMovement : MonoBehaviour
         
     }
     
-    void OnCollisionEnter(Collider2D other)
+    void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("Dog OnTriggerEnter");
-        if(other.GetComponent<Player>() != null)
+        if(col.gameObject.GetComponent<Player>() != null)
         {
             // TODO: Game over component
+
+            return;
         }
-        if(other.GetComponent<FarmerMovement>() != null)
+        if(col.gameObject.GetComponent<FarmerMovement>() != null)
         {
             // Switch state to chasing
             DogIsChasing = true;
             chasing.enabled = DogIsChasing;
             wandering.enabled = !DogIsChasing;
+
+            return;
         }
         // TODO: Add bombComponent
-        var farmer = other.GetComponent<FarmerMovement>();
+        var farmer = col.gameObject.GetComponent<FarmerMovement>();
         if(farmer != null)
         {
             // Switch state to wandering
@@ -49,6 +52,10 @@ public class DogMovement : MonoBehaviour
             farmer.SelectTarget();
 
             // Play dirty animation
+
+            return;
         }
+
+        wandering.SetNewDestination();
     }
 }

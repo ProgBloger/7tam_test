@@ -6,10 +6,10 @@ public class Wandering : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float range;
-    [SerializeField] float moveSpeed = 5f;
-    float maxDistance;
+    [SerializeField] float maxDistance;
     Rigidbody2D body;
-    Vector2 wayPoint;
+    Vector2 newPosition;
+    Vector2 previousFixedUpdatemovement;
 
     float GetRandomPoint() => Random.Range(-maxDistance, maxDistance);
 
@@ -22,26 +22,40 @@ public class Wandering : MonoBehaviour
         SetNewDestination();
     }
 
-    // Update is called once per frame
     // void Update()
     // {
     //     transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
     // }
 
     // Update is called once per frame
+    // void FixedUpdate()
+    // {
+    //     var lerp = Vector2.Lerp(newPosition, (Vector2)transform.position, moveSpeed * Time.deltaTime);
+
+    //     Vector2 direction = newPosition - (Vector2)transform.position;
+    //     body.MovePosition(lerp);
+
+    //     var movePisition = (Vector2)transform.position + (direction * moveSpeed * Time.deltaTime);
+    //     Debug.Log(lerp);
+    //     if(Vector2.Distance(transform.position, newPosition) < range)
+    //     {
+    //         SetNewDestination();
+    //     }
+    // }
+   
     void FixedUpdate()
     {
-        Vector2 direction = wayPoint - (Vector2)transform.position;
-        body.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
+        var movement = Vector2.Lerp(transform.position,newPosition,Time.deltaTime*speed);
 
-        if(Vector2.Distance(transform.position, wayPoint) < range)
-        {
+        if(Vector2.Distance(transform.position, newPosition) < 1 || movement == previousFixedUpdatemovement)
             SetNewDestination();
-        }
+ 
+        body.MovePosition(movement);
+        previousFixedUpdatemovement = movement;
     }
 
-    void SetNewDestination()
+    public void SetNewDestination()
     {
-        wayPoint = new Vector2(GetRandomPoint(), GetRandomPoint());
+        newPosition = new Vector2(GetRandomPoint(), GetRandomPoint());
     }
 }

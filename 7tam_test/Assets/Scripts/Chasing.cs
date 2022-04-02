@@ -7,7 +7,6 @@ public class Chasing : MonoBehaviour
     public Transform target;
     public float moveSpeed = 5f;
     private Rigidbody2D body;
-    private Vector2 movement;
 
     // Start is called before the first frame update
     void Start()
