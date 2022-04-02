@@ -4,104 +4,31 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Vector2Int[] directions = {
-        Vector2Int.up,
-        Vector2Int.right,
-        Vector2Int.down,
-        Vector2Int.left,
-    };
+    private Animator anim;
+    public float speed = 4.5f;
+    private Rigidbody2D body;
+    private BoxCollider2D box;
 
-
-    public float moveStepDelay = 0.5f;
-    public float moveStepSpeed = 10;
-    public Waypoint currentWaypoint;
-    public Waypoint nextWP;
-    public WaypointGrid grid;
-    private float lerpTime = 0;
-
+    // Start is called before the first frame update
+    void Start()
+    {
+        box = GetComponent<BoxCollider2D>();
+        body = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        body.freezeRotation = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-    }
+        float deltaX = Input.GetAxis("Horizontal") * speed;
+        float deltaY = Input.GetAxis("Vertical") * speed;
 
-    void Move()
-    {
-        // 
-        if(nextWP != null && currentWaypoint != nextWP)
-        {
-            lerpTime += Time.deltaTime;
+        Debug.Log("deltaX " + deltaX);
+        Debug.Log("deltaY " + deltaY);
 
-            MakeAMove();
+        body.velocity = new Vector2(deltaX, deltaY);
 
-            // Destination position is reached
-            if(lerpTime >= moveStepDelay)
-            {
-                // Debug.Log($"next to current set");
-                currentWaypoint = nextWP;
-            }
-        }
-        else
-        {
-            var direction = GetDirection();
-            // Debug.Log($"Direction {direction}");
-            // Debug.Log($"currentWaypoint {currentWaypoint.GetGridPos()}");
-            nextWP = grid.GetNextWaypoint(currentWaypoint, direction);
-            // Debug.Log($"Next wp is null {nextWP == null}");
-            lerpTime = 0;
-        }
-        // Play animation
-    }
-
-    private void MakeAMove()
-    {
-        var playerPosition = transform.position;
-            var nextWPPosition = nextWP.transform.position;
-
-            var lerped = Vector2.Lerp(
-                playerPosition, 
-                nextWPPosition, 
-                Time.deltaTime*moveStepSpeed);
-            
-            transform.position = lerped;
-    }
-
-    private Vector2 GetDirection()
-    {
-        float deltaX = Input.GetAxis("Horizontal");
-        float deltaY = Input.GetAxis("Vertical");
-        TurnToInt(ref deltaX);
-        TurnToInt(ref deltaY);
-
-        return new Vector2(deltaX, deltaY);
-    }
-
-    void TurnToInt(ref float input)
-    {
-        if(input > 0)
-        {
-            
-            try
-            {
-                input = (float)Math.Ceiling(input);
-            }
-            catch
-            {
-                Debug.Log($"Unexpected value cast  {Math.Ceiling(input)} to float");
-            }
-        }
-        
-        if(input < 0)
-        {
-            try
-            {
-                input = (float)Math.Floor(input);
-            }
-            catch
-            {
-                Debug.Log($"Unexpected value cast  {Math.Ceiling(input)} to float");
-            }
-        }
+        // anim.SetFloat("speed", Mathf.Abs(deltaX));
     }
 }
