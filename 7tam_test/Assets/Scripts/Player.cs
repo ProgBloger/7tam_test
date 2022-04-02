@@ -24,9 +24,6 @@ public class Player : MonoBehaviour
         float deltaX = Input.GetAxis("Horizontal") * speed;
         float deltaY = Input.GetAxis("Vertical") * speed;
 
-        Debug.Log("deltaX " + deltaX);
-        Debug.Log("deltaY " + deltaY);
-
         body.velocity = new Vector2(deltaX, deltaY);
 
         // anim.SetFloat("speed", Mathf.Abs(deltaX));
