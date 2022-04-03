@@ -6,6 +6,7 @@ public class Chasing : MonoBehaviour
 {
     public Transform target;
     public float moveSpeed = 5f;
+    public Vector2 Movement {get; private set;}
     private Rigidbody2D body;
 
     // Start is called before the first frame update
@@ -19,6 +20,7 @@ public class Chasing : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 direction = target.position - transform.position;
+        Movement = direction;
         body.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
     }
 }

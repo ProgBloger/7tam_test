@@ -6,6 +6,7 @@ public class ItemController : MonoBehaviour
 {
     int totalItems;
     int collectedItems = 0;
+    [SerializeField] SceneLoader sceneLoader;
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +19,7 @@ public class ItemController : MonoBehaviour
         collectedItems++;
         if(collectedItems == totalItems)
         {
-            // TODO: Win screen
-            Debug.Log($"You won!");
+            sceneLoader.LoadWinScene();
         }
     }
 }

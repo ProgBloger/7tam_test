@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7190783698272125338}
   - component: {fileID: 1787288370}
   - component: {fileID: 1787288375}
+  - component: {fileID: 768347631}
   m_Layer: 0
   m_Name: Dog
   m_TagString: Untagged
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  moveSpeed: 2
+  moveSpeed: 0.6
 --- !u!114 &1787288370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +163,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fa33145c71039439421e0db02b6ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.25
+  speed: 0.15
   range: 1
   maxDistance: 100
+--- !u!95 &768347631
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7190783698272125337}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df23d20a6680ee441a188bc7c18b994f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
