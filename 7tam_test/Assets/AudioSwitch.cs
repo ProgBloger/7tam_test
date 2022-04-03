@@ -10,9 +10,6 @@ public class AudioSwitch : MonoBehaviour
 
     public void Switch()
     {
-        Debug.Log("Switch!");
-        Debug.Log("audioManager is null!" + audioManager == null);
-        Debug.Log("clip is null !" + clip == null);
         audioManager.ChangeMusic(clip);
     }
 }

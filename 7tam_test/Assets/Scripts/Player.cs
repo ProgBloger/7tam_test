@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     private string currentState;
     private int ScreenWidth;
     private int ScreenHeight;
+    private Vector2 startPos;
+    private Vector2 move;
     private const string PigForward = "PigForward";
     private const string PigAnimationUp = "PigAnimationUp";
     private const string PigAnimationDown = "PigAnimationDown";
@@ -26,6 +28,11 @@ public class Player : MonoBehaviour
         body.freezeRotation = true;
         ScreenWidth = Screen.width;
         ScreenHeight = Screen.height;
+    }
+
+    void FixedUpdate()
+    {
+        body.velocity = move * speed;
     }
 
     // Update is called once per frame
@@ -52,6 +59,30 @@ public class Player : MonoBehaviour
             deltaX = touches[0].position.x;
             deltaY = touches[0].position.y;
         }
+
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            Touch t = Input.GetTouch(0);
+            startPos = t.position;
+        }
+        else if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+            Touch t = Input.GetTouch(0);
+            move = Vector2.ClampMagnitude(t.position - startPos, 1);
+        }
+        else if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Stationary)
+        {
+            Touch t = Input.GetTouch(0);
+            move = Vector2.ClampMagnitude(t.position - startPos,1);
+        }
+        else if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            Touch t = Input.GetTouch(0);
+            move = new Vector2(0,0);
+        }
+
+        deltaX = move.x;
+        deltaY = move.y;
         
         # endif
 
@@ -61,8 +92,6 @@ public class Player : MonoBehaviour
         deltaY = Input.GetAxis("Vertical") * speed;
         
         #endif
-
-        body.velocity = new Vector2(deltaX, deltaY);
 
         if(Mathf.Approximately(deltaX, 0) && Mathf.Approximately(deltaY, 0))
         {
