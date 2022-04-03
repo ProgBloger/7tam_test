@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D body;
     private BoxCollider2D box;
     private string currentState;
+    private int ScreenWidth;
+    private int ScreenHeight;
     private const string PigForward = "PigForward";
     private const string PigAnimationUp = "PigAnimationUp";
     private const string PigAnimationDown = "PigAnimationDown";
@@ -22,13 +24,43 @@ public class Player : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         body.freezeRotation = true;
+        ScreenWidth = Screen.width;
+        ScreenHeight = Screen.height;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float deltaX = Input.GetAxis("Horizontal") * speed;
-        float deltaY = Input.GetAxis("Vertical") * speed;
+        float deltaX = 0;
+        float deltaY = 0;
+
+        #if UNITY_ANDROID
+        
+        // if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        // {
+        //     Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+        //     deltaX = touchDeltaPosition.x;
+        //     deltaY = touchDeltaPosition.y;
+        // }
+
+        // var pos = Camera.main.ScreenToWorldPoint(new Vector3 (Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 5));
+        // deltaX = pos.x;
+        // deltaY = pos.y;
+        
+        Touch[] touches = Input.touches;
+        if(touches.Length > 0){
+            deltaX = touches[0].position.x;
+            deltaY = touches[0].position.y;
+        }
+        
+        # endif
+
+        #if UNITY_EDITOR
+
+        deltaX = Input.GetAxis("Horizontal") * speed;
+        deltaY = Input.GetAxis("Vertical") * speed;
+        
+        #endif
 
         body.velocity = new Vector2(deltaX, deltaY);
 
